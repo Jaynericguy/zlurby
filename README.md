@@ -16,4 +16,5 @@ docker push jaynericguy/zlurby
 This removes all files from the repository and adds them back (this time respecting the rules in your .gitignore).
 
 git rm -rf --cached .
+
 git add .
