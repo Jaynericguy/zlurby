@@ -5,4 +5,4 @@ RUN mkdir -p /bot
 WORKDIR /bot
 RUN npm install discord.js
 COPY . .
-CMD ["node", "app.js"]
+CMD ["node", "app.mjs"]

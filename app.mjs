@@ -1,4 +1,4 @@
-import { TOKEN, CLIENT_ID, GUILD_ID} from "./var.js"
+import { sayHello, TOKEN, CLIENT_ID, GUILD_ID} from "./var.js"
 const { REST, Routes, Client, GatewayIntentBits, SlashCommandBuilder } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 var guild = undefined
@@ -27,6 +27,7 @@ const commands = [
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   guild = client.guilds.cache.get(GUILD_ID);
+  console.log(sayHello())
 });
 
 client.on('interactionCreate', async interaction => {
