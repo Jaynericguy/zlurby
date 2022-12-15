@@ -1,5 +1,7 @@
-import { TOKEN, CLIENT_ID, GUILD_ID} from "./var.js"
-const { REST, Routes, Client, GatewayIntentBits, SlashCommandBuilder } = require('discord.js');
+import pkg from './var.mjs';
+const { TOKEN, CLIENT_ID, GUILD_ID} = pkg;
+import pkg2 from "discord.js"
+const { REST, Routes, Client, GatewayIntentBits, SlashCommandBuilder } = pkg2;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 var guild = undefined
 const commands = [
