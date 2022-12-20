@@ -1,31 +1,27 @@
-import pkg from './var.mjs';
-const { TOKEN, CLIENT_ID, GUILD_ID} = pkg;
-import pkg2 from "discord.js"
-const { REST, Routes, Client, GatewayIntentBits, SlashCommandBuilder } = pkg2;
+
+const { TOKEN, CLIENT_ID, GUILD_ID } = require("./var.cjs");
+const { REST, Routes, Client, GatewayIntentBits, SlashCommandBuilder } = require("discord.js");
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 var guild = undefined
+const rest = new REST({ version: '10' }).setToken(TOKEN);
 const commands = [
-    new SlashCommandBuilder().setName('colour-me-surprised').setDescription('Colours you in hex role!').addStringOption(option =>
-		option.setName('colour-me')
-			.setDescription('Add the colour to the role you want')
-			.setRequired(true))
-]
-    .map(command => command.toJSON());
-  
-  const rest = new REST({ version: '10' }).setToken(TOKEN);
-  
-  (async () => {
-    try {
-      console.log('Started refreshing application (/) commands.');
-  
-      await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
-  
-      console.log('Successfully reloaded application (/) commands.');
-    } catch (error) {
-      console.error(error);
-    }
-  })();
+  new SlashCommandBuilder().setName('colour-me-surprised').setDescription('Colours you in hex role!').addStringOption(option =>
+  option.setName('colour-me')
+    .setDescription('Add the colour to the role you want')
+    .setRequired(true))
+  ].map(command => command.toJSON());
+client.login(TOKEN);
+(async () => {
+  try {
+    console.log('Started refreshing application (/) commands.');
 
+    await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
+
+    console.log('Successfully reloaded application (/) commands.');
+  } catch (error) {
+    console.error(error);
+  }
+})();
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   guild = client.guilds.cache.get(GUILD_ID);
@@ -60,5 +56,3 @@ function validate(param){
     const regex = /^#(?:[0-9a-f]{3}){1,2}$/i;
     return regex.test(param);
   }
-
-client.login(TOKEN);
